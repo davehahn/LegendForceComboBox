@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>ComboBox Demo</title>
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="jQuery.LegendForceComboBox.js" type="text/javascript"></script>
+  <link href="normalize.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="foundation.min.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="LegendForceComboBox.css" media="screen" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <h1>ComboBox Demo</h1>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="large-6 columns">
+      <input type="text" class="comboBox" />
+    </div>
+
+    <div class="large-6 columns">
+    <p id="result"></p>
+    </div>
+
+  </div>
+
+<script type="text/javascript">
+  var fakeResults = [
+    {"Id": "1", "Name": "Dave Hahn"},
+    {"Id": "2", "Name": "Julie Hahn"},
+    {"Id": "3", "Name": "Evan Hahn"},
+    {"Id": "4", "Name": "Adam Hahn"},
+    {"Id": "5", "Name": "Erica Hahn"},
+    {"Id": "6", "Name": "Ben Ferdinand"},
+    {"Id": "7", "Name": "Shawn Lesilie"},
+    {"Id": "8", "Name": "Henry Nguyen"},
+    {"Id": "9", "Name": "David MacAlaster"}
+  ];
+
+  $('.comboBox').legendForceComboBox({
+    textFieldName: 'Name',
+    searchFunction: function(q) {
+      return searchNow(q);
+    },
+    quickSelectHandler: function(result){
+      console.log(result)
+      $('#result').html(result.Name);
+    },
+    selectHandler: function(objectId, text, object){
+      console.log(objectId);
+      console.log(text);
+      console.log(object);
+      $('#result').html(text);
+      this.val(text);
+    },
+    onClose: function(){
+      console.log("We have closed");
+      $('#result').html('');
+    }
+  });
+
+  function searchNow(queryString){
+   console.log(queryString);
+    var self;
+    return $.Deferred( function() {
+      self = this;
+
+      //perform the remote server call to fetch some data
+
+      self.resolve(fakeResults);
+    })
+  }
+</script>
+
+
+</body>
+
+</html>
+
+
+
+
+
+
+
